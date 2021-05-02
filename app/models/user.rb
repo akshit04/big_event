@@ -7,22 +7,37 @@ class User < Base
     attr_accessor :email, :first_name, :last_name, :level, :uin, :partnership_number, :superior_email, :committee
 
     def initialize(user_doc)
-        @email = user_doc[:email]
-        @first_name = user_doc[:firstname]
-        @last_name = user_doc[:lastname]
-        @level = user_doc[:level]
-        @partnership_number = user_doc[:partnershipnumber]
-        @committee = user_doc[:committee]
-        @superior_email = user_doc[:superioremail]
-        @uin = user_doc[:uin]
+        if !User.staff_member?(user_doc)
+            @email = ""
+            @first_name = ""
+            @last_name = ""
+            @level = ""
+            @partnership_number = ""
+            @committee = ""
+            @superior_email = ""
+            @uin = ""
+        else 
+            @email = user_doc[:email]
+            @first_name = user_doc[:firstname]
+            @last_name = user_doc[:lastname]
+            @level = user_doc[:level]
+            @partnership_number = user_doc[:partnershipnumber]
+            @committee = user_doc[:committee]
+            @superior_email = user_doc[:superioremail]
+            @uin = user_doc[:uin]
+        end
     end
 
     def self.staff_member?(user_doc)
         return user_doc.exists?
     end
 
+    def self.executive?(user_doc)
+        return user_doc[:level] == "EX"
+    end
+
     def self.get(email)
-        db_ref_staff.doc(email).get
+       db_ref_staff.doc(email).get
     end
 
     def save

@@ -12,6 +12,7 @@ class AuthenticationController < ApplicationController
         if !User.staff_member?(user_doc)
             redirect_to reject_url
         else
+            puts "HERE"
             log_in(user_doc, credentials)
             @user = User.new(user_doc)
             # Access_token is used to authenticate request made from the rails application to the google server
@@ -35,6 +36,7 @@ class AuthenticationController < ApplicationController
 
     private 
         def log_in(user, credentials)
+            puts "LOGGING IN"
             session[:user_email] = user[:email]
             session[:level] = user[:level]
             session[:expires_at] = credentials.expires_at
