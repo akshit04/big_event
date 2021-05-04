@@ -56,6 +56,17 @@ Then /^(?:|I )should see the following: +(.*)$/ do |text|
   end
 end
 
+Then /^(?:|I )should see the following field entries: +(.*)$/ do |text|
+  text_list = text.split(/\"/).select{ |s| s=~/^\w/};
+  text_list.each do |t|
+    field_entry = t.split(/\:/)
+    if page.respond_to? :should
+      page.should have_field("#{field_entry[0]}", with: "#{field_entry[1]}")
+    end
+  end
+end
+
+
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
 
   if page.respond_to? :should
@@ -64,6 +75,8 @@ Then /^(?:|I )should see "([^"]*)"$/ do |text|
     assert page.has_content?(text)
   end
 end
+
+
 
 Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
@@ -82,6 +95,26 @@ Then /^(?:|I )should not see "([^"]*)"$/ do |text|
   end
 end
 
+Then /^(?:|I )should not see the following: +(.*)$/ do |text|
+  text_list = text.split(/\"/).select{ |s| s=~/^\w/};
+  text_list.each do |t|
+    if page.respond_to? :should
+      page.should have_no_content(t)
+    else
+      assert page.has_no_content?(t)
+    end
+  end
+end
+
+Then /^(?:|I )should not see the following field entries: +(.*)$/ do |text|
+  text_list = text.split(/\"/).select{ |s| s=~/^\w/};
+  text_list.each do |t|
+    field_entry = t.split(/\:/)
+    if page.respond_to? :should
+      page.should have_no_field("#{field_entry[0]}", with: "#{field_entry[1]}")
+    end
+  end
+end
 
 Then /^(?:|I )should be on the "([^"]*)"$/ do |page_name|
   current_path = URI.parse(current_url).path
