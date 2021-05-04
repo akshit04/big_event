@@ -9,6 +9,9 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
       when /^HomePage$/ then '/'
+      when /([\w\d]+) +PartnershipPage/ then "/partnership/#{$1}"
+      when /([\d\-]+) +JobPage/ then "/jobs/#{$1}"
+      when /JobStatus Page/ then "/status"
       when /^Job Request/ then "/jobrequest"
       when /^Sign Up/ then "https://bigeventonline.tamu.edu/signup"
       when /^Staff Directory/ then "/users"
