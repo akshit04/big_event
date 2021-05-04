@@ -1,4 +1,5 @@
 class JobYearController < ApplicationController
+    before_action :check_login
     def show
         if(params[:id].present?)
             @current_job_year = params[:id]

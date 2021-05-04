@@ -16,7 +16,7 @@ Feature: go to the home page
   Scenario: Click "Committee Services"
     When I follow "committee_services_btn"
     Then I should be on the "HomePage"
-    And I should see "User not signed in"
+#    And I should see "User not signed in"
 
 #  Scenario: Click "Committee Services"
 #    When I am logged in

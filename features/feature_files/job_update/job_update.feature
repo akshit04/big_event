@@ -9,11 +9,11 @@ Feature: View Job Status
       | chemsworth@tamu.edu     | Claire    | Hemsworth  | 1A                |
 
     Given the following jobs exist:
-      | JobNumber               | Partnership | Status          | JobDescription |
-      | 2019-0000               | 1A          | Not Completed   | Paints         |
-      | 2019-0001               | 1A          | Submitted to CM | Paints         |
-      | 2019-0002               | 1A          | Submitted to EX | Paints         |
-
+      | JobNumber               | Partnership | Status          | JobDescription | CommitteeEmail      |
+      | 2019-0000               | 1A          | Not Completed   | Paints         | chemsworth@tamu.edu |
+      | 2019-0001               | 1A          | Submitted to CM | Paints         | chemsworth@tamu.edu |
+      | 2019-0002               | 1A          | Submitted to EX | Paints         | chemsworth@tamu.edu |
+      | 2019-0003               | 1A          | Completed       | Paints         | chemsworth@tamu.edu |
 
   Scenario: Log in as SA
     Given I, "chemsworth@tamu.edu", am an "SA" level
@@ -37,6 +37,31 @@ Feature: View Job Status
     Then I should be on the "2019-0001 JobPage"
     And I should see the following field entries: "status:Submitted to EX"
 
+  Scenario: Log in as EX
+    Given I, "chemsworth@tamu.edu", am an "EX" level
+    And I am logged in as "chemsworth@tamu.edu"
+    And I am on the "2019-0002 JobPage"
+    When I follow "Complete"
+    Then I should be on the "2019-0002 JobPage"
+    And I should see the following field entries: "status:Completed"
+
+  Scenario: Log in as EX
+    Given I, "chemsworth@tamu.edu", am an "EX" level
+    And I am logged in as "chemsworth@tamu.edu"
+    And I am on the "2019-0003 JobPage"
+    When I follow "NA"
+    Then I should be on the "2019-0003 JobPage"
+    And I should see the following field entries: "status:Completed"
+
+  Scenario: Log in as EX
+    Given I, "chemsworth@tamu.edu", am an "EX" level
+    And I am logged in as "chemsworth@tamu.edu"
+    And I am on the "2019-0003 JobPage"
+    When I follow "Cancel"
+    Then I should be on the "2019-0003 JobPage"
+    And I should see the following field entries: "status:Cancelled"
+
+
   Scenario: Delete the test set jobs from the database
-    When I delete the jobs "2019-0000"
-    Then I should not see the the jobs "2019-0000"
+    When I delete the jobs "2019-0000 2019-0001 2019-0002 2019-0003"
+    Then I should not see the the jobs "2019-0000 2019-0001 2019-0002 2019-0003"

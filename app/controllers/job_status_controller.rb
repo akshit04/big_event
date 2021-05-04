@@ -26,10 +26,4 @@ class JobStatusController < ApplicationController
     end
   end
 
-  def check_login
-    if(!session[:user_email].present?)
-      flash[:notice] = "User not signed in"
-      redirect_to root_path
-    end
-  end
 end
