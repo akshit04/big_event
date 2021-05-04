@@ -25,6 +25,10 @@ Feature: View Jobs
     When I follow "2019-0000"
     Then I should be on the "2019-0000 JobPage"
     And I should see the following: "FlatShovels" "GardenSpades" "Gloves" "Hammers" "HandClippers" "Cancel"
+    And I should see the following: “Yard Sign” “Years participated in The Big Event” “Recipient Biography”
+    And I should see the following: “Is there a pet at the residence?” “If yes, what type of pet?” “Overall, is there a risk?” “If so, what is the risk?”
+    And I should see the following: “Is this a media job?” “Is Job Site Checklist Complete?” “Is Risk Eval Complete?”
+    And I should see the following: “Is Recipient Biography Complete?” “Is Waiver/Indemnation Form Complete?”
     And I should see the following field entries: "job_description:Paints"
     And I should see the following field entries: "status:Not Completed"
     And I should not see the following field entries: "job_description:Clean" "job_description:Carry" "job_description:Yard" "job_description:Garden"

@@ -11,6 +11,8 @@ module NavigationHelpers
       when /^HomePage$/ then '/'
       when /([\w\d]+) +PartnershipPage/ then "/partnership/#{$1}"
       when /([\d\-]+) +JobPage/ then "/jobs/#{$1}"
+      when /([\d\-]+) +JobEditPage/ then "/jobs/#{$1}/edit"
+      when /([\d]+) +JobYearPage/ then "/job_year/#{$1}"
       when /JobStatus Page/ then "/status"
       when /^Job Request/ then "/jobrequest"
       when /^Sign Up/ then "https://bigeventonline.tamu.edu/signup"

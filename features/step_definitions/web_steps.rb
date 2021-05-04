@@ -44,6 +44,15 @@ When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
 end
 
+When /^(?:|I )fill in the following entries: +(.*)$/ do |text|
+  text_list = text.split(/\"/).select{ |s| s=~/^\w/};
+  text_list.each do |t|
+    field_entry = t.split(/\:/)
+    if page.respond_to? :should
+      fill_in("#{field_entry[0]}", :with => "#{field_entry[1]}")
+    end
+  end
+end
 
 Then /^(?:|I )should see the following: +(.*)$/ do |text|
   text_list = text.split(/\"/).select{ |s| s=~/^\w/};
